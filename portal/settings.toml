@@ -1,0 +1,9 @@
+[default]
+title = "Portal de Dicas"
+extensions = [
+    "portal.database:configure",
+    "flask_bootstrap:Bootstrap",
+    "portal.views:configure",
+]
+secret_key = "f2fa5b3e3199a5db60d7ff77b3e34b4a71e4f5a78642bb58de5ab0d5c0bacd0d"
+FLASK_ADMIN_SWATCH = 'united'
