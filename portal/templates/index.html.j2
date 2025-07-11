@@ -3,17 +3,12 @@
 {% block content %}
 <div class="container mt-4">
     
-    <!-- Título dinâmico da página -->
     <h3>{{ title }}</h3>
     <hr>
     
-    <!-- Seção de Filtros por Tag -->
     <div class="mb-4">
         <strong>Filtrar por tag:</strong><br>
-        <!-- Link para mostrar todas as dicas -->
         <a href="{{ url_for('tips.index') }}" class="btn btn-primary btn-sm mt-1">Mostrar Todas</a>
-        
-        <!-- Itera sobre todas as tags únicas para criar os botões de filtro -->
         {% for tag_item in all_tags %}
         <a href="{{ url_for('tips.index', tag=tag_item) }}" class="btn btn-outline-info btn-sm mt-1">
             {{ tag_item }}
@@ -21,20 +16,17 @@
         {% endfor %}
     </div>
 
-    <!-- Lista de Dicas -->
     <div class="row">
         {% for tip in tips %}
-        <div class="card text-bg-light mb-3">
+        <div class="card mb-3"> 
             <div class="card-body">
                 <h5 class="card-title">{{ tip.objetivo }}</h5>
-                <p class="card-text"><strong>Comando:</strong> <code>{{ tip.comando }}</code></p>
-                <p class="card-text"><strong>Exemplo:</strong> <code>{{ tip.exemplo }}</code></p>
+                <pre><code class="language-{{ tip.linguagem }}">{{ tip.codigo }}</code></pre>
             </div>
-            <div class="card-footer text-bg-info">
-                <small class="text-body-secondary">
+            <div class="card-footer text-muted"> 
+                <small>
                     <strong>Tags:</strong>
                     <em>
-                        <!-- Torna cada tag individualmente um link para o filtro -->
                         {% for t in tip.tags %}
                             <a href="{{ url_for('tips.index', tag=t) }}" class="text-body-secondary text-decoration-none">{{ t }}</a>{% if not loop.last %}, {% endif %}
                         {% endfor %}
@@ -43,7 +35,6 @@
             </div>
         </div>
         {% else %}
-            <!-- Mensagem exibida quando nenhuma dica é encontrada (ex: filtro não retorna resultados) -->
             <div class="col">
                 <p class="text-center">Nenhuma dica encontrada.</p>
             </div>
