@@ -5,4 +5,3 @@ extensions = [
     "flask_bootstrap:Bootstrap",
     "portal.views:configure",
 ]
-FLASK_ADMIN_SWATCH = 'united'
