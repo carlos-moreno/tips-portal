@@ -2,42 +2,56 @@
 
 {% block content %}
 <div class="container mt-4">
-    
+
     <h3>{{ title }}</h3>
     <hr>
-    
+
     <div class="mb-4">
         <strong>Filtrar por tag:</strong><br>
-        <a href="{{ url_for('tips.index') }}" class="btn btn-primary btn-sm mt-1">Mostrar Todas</a>
-        {% for tag_item in all_tags %}
-        <a href="{{ url_for('tips.index', tag=tag_item) }}" class="btn btn-outline-info btn-sm mt-1">
-            {{ tag_item }}
-        </a>
-        {% endfor %}
+
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-select mt-1" onchange="if(this.value) location.href=this.value;">
+
+                    <option value="{{ url_for('tips.index') }}" {% if not active_tag %}selected{% endif %}>
+                        Mostrar Todas
+                    </option>
+
+                    {% for tag_item in all_tags %}
+                    <option value="{{ url_for('tips.index', tag=tag_item) }}" {% if active_tag==tag_item %}selected{%
+                        endif %}>
+                        {{ tag_item }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
     </div>
 
     <div class="row">
         {% for tip in tips %}
-        <div class="card mb-3"> 
+        <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title">{{ tip.objetivo }}</h5>
                 <pre><code class="language-{{ tip.linguagem }}">{{ tip.codigo }}</code></pre>
             </div>
-            <div class="card-footer text-muted"> 
+            <div class="card-footer text-muted">
                 <small>
                     <strong>Tags:</strong>
                     <em>
                         {% for t in tip.tags %}
-                            <a href="{{ url_for('tips.index', tag=t) }}" class="text-body-secondary text-decoration-none">{{ t }}</a>{% if not loop.last %}, {% endif %}
+                        <a href="{{ url_for('tips.index', tag=t) }}" class="text-body-secondary text-decoration-none">
+                            {{ t }}
+                        </a>{% if not loop.last %}, {% endif %}
                         {% endfor %}
                     </em>
                 </small>
             </div>
         </div>
         {% else %}
-            <div class="col">
-                <p class="text-center">Nenhuma dica encontrada.</p>
-            </div>
+        <div class="col">
+            <p class="text-center">Nenhuma dica encontrada.</p>
+        </div>
         {% endfor %}
     </div>
 </div>
