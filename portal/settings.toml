@@ -2,6 +2,5 @@
 title = "Portal de Dicas"
 extensions = [
     "portal.database:configure",
-    "flask_bootstrap:Bootstrap",
     "portal.views:configure",
 ]
